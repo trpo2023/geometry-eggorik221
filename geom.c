@@ -3,6 +3,7 @@
 #include <string.h>
 #include <ctype.h>
 #define Size 30
+#define pi 3.14
 
 typedef struct point
 {
@@ -66,6 +67,15 @@ void getCircleData(Circle* circle, int* num){
     circle->r = getNumber(num);
 }
 
+void pushInfo(Circle* circle){
+    printf("circle(%f %f, %f)\n", circle->p.x, circle->p.y, circle->r);
+    double perimeter = 2 * pi * circle->r; 
+    double area = pi * circle->r * circle->r;
+    printf("perimeter = %f\n", perimeter);
+    printf("area = %f\n", area);
+}
+
+
 int main(){
     char str[Size];
     char curch =getchar();
@@ -76,6 +86,7 @@ int main(){
         if (curch == '('){
             if (strcmp(str, "circle") == 0){
                 getCircleData(&circle, &symbnum);
+                pushInfo(&circle);
             }
             else
             {
