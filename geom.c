@@ -17,6 +17,35 @@ typedef struct circle
     double r;
 } Circle;
 
+
+void errPrint(int num, int errnum){
+    for (int i = 0; i < num;i++)
+        putchar(' ');
+    putchar('^');
+    printf("\n");
+    switch (errnum)
+    {
+    case 1:
+        printf("Error at column 0: expected 'circle'\n");
+        exit(0);
+        break;
+    
+    case 2:
+        printf("Error at column %d: expected '<double>'\n", num+1);
+        exit(0);
+        break;
+    case 3:
+        printf("Error at column %d: expected ')'\n", num);
+        exit(0);
+        break;
+    
+    case 4:
+        printf("Error at column %d: unexpected token\n", num);
+        exit(0);
+        break;
+    }
+}
+
 double getNumber(int* num){
     char curch;
     char temp[Size];
@@ -42,11 +71,11 @@ double getNumber(int* num){
             break;   
         }
         if(temp[cnt] == '('){
-            //error
+            errPrint(*num+cnt-1, 3);
             exit(0);
         }
         if (temp[cnt] != '.' && (!isdigit(temp[cnt]))) {
-                //error
+                errPrint(*num, 2);
                 exit(0);
             }
         cnt++;
@@ -59,6 +88,25 @@ void getPointData(Point* p, int* num){
     p->x = getNumber(num);
     *num -= 1;
     p->y = getNumber(num);
+}
+
+void tokenContron(int* num){
+    char curch =getchar();
+    *num += 1;
+    if (curch != '\n'){
+        if (curch != ' '){
+            errPrint(*num, 4);
+            exit(0);
+        }
+        else{
+            if(getchar()=='\n')
+                exit(0);
+            else{
+                *num += 1;
+                errPrint(*num,4);
+            }
+        }
+    }
 }
 
 void getCircleData(Circle* circle, int* num){
@@ -90,7 +138,7 @@ int main(){
             }
             else
             {
-                puts("Error at column 0: expected 'circle'\n");
+                errPrint(0, 1);
                 exit(0);
             }
         }
