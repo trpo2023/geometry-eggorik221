@@ -68,6 +68,7 @@ double getNumber(int* num){
         }
         if (temp[cnt] == ','){
             cnt++;
+            getchar();
             break;
         }
         if (temp[cnt] == ')'){
@@ -115,7 +116,6 @@ void tokenContron(int* num){
 
 void getCircleData(Circle* circle, int* num){
     getPointData(&circle->p, num);
-    getchar();
     circle->r = getNumber(num);
 }
 
@@ -140,6 +140,7 @@ int main(){
             if (strcmp(str, "circle") == 0){
                 getCircleData(&circle, &symbnum);
                 pushInfo(&circle);
+                exit(0);
             }
             else
             {
@@ -148,8 +149,8 @@ int main(){
             }
         }
         str[symbnum++] = curch;
-	if(strchr(str, ach)== NULL)
-	    errPrint(0, 5);
+        if (symbnum > 6 && 	(strchr(str, ach)== NULL))
+        	errPrint(0, 5);
     } while ((curch = getchar()) != '\n' || curch != EOF);
 
     return 0;
