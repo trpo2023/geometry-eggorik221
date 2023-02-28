@@ -81,7 +81,7 @@ double getNumber(int* num){
             exit(0);
         }
         if (temp[cnt] != '.' && (!isdigit(temp[cnt]))) {
-                errPrint(*num+1, 2);
+                errPrint(*num+cnt, 2);
                 exit(0);
             }
         cnt++;
@@ -99,7 +99,6 @@ void getPointData(Point* p, int* num){
 
 void tokenContron(int* num){
     char curch =getchar();
-    *num += 1;
     if (curch != '\n'){
         if (curch != ' '){
             errPrint(*num, 4);
@@ -119,6 +118,7 @@ void tokenContron(int* num){
 void getCircleData(Circle* circle, int* num){
     getPointData(&circle->p, num);
     circle->r = getNumber(num);
+    tokenContron(num);
 }
 
 void pushInfo(Circle* circle){
@@ -159,7 +159,7 @@ int main(){
     		break;
     } while (1);
 
-	if (symbnum < 6)
+	if (symbnum < 6 || curch == '\n')
 		errPrint(0, 1);
     return 0;
 }
