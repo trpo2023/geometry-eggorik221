@@ -68,19 +68,20 @@ double getNumber(int* num){
         }
         if (temp[cnt] == ','){
             cnt++;
+            cnt++;
             getchar();
             break;
-        }
+        }   
         if (temp[cnt] == ')'){
             cnt++;
             break;   
         }
         if(temp[cnt] == '('){
-            errPrint(*num+cnt-1, 3);
+            errPrint(*num+cnt, 3);
             exit(0);
         }
         if (temp[cnt] != '.' && (!isdigit(temp[cnt]))) {
-                errPrint(*num, 2);
+                errPrint(*num+1, 2);
                 exit(0);
             }
         cnt++;
@@ -93,6 +94,7 @@ void getPointData(Point* p, int* num){
     p->x = getNumber(num);
     *num -= 1;
     p->y = getNumber(num);
+    *num -= 1;
 }
 
 void tokenContron(int* num){
@@ -130,14 +132,17 @@ void pushInfo(Circle* circle){
 
 int main(){
     char str[Size];
-    char curch =getchar();
+    char curch;
     int symbnum = 0;
     char ach = '(';
     Circle circle;
     do
-    {
+    {	
+    	curch = getchar();
+
         if (curch == '('){
             if (strcmp(str, "circle") == 0){
+            	str[symbnum++] = curch;
                 getCircleData(&circle, &symbnum);
                 pushInfo(&circle);
                 exit(0);
@@ -145,13 +150,16 @@ int main(){
             else
             {
                 errPrint(0, 1);
-                exit(0);
             }
         }
         str[symbnum++] = curch;
         if (symbnum > 6 && 	(strchr(str, ach)== NULL))
         	errPrint(0, 5);
-    } while ((curch = getchar()) != '\n' || curch != EOF);
+        if (curch == '\n' || curch == EOF)
+    		break;
+    } while (1);
 
+	if (symbnum < 6)
+		errPrint(0, 1);
     return 0;
 }
