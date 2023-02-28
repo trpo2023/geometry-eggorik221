@@ -43,6 +43,10 @@ void errPrint(int num, int errnum){
         printf("Error at column %d: unexpected token\n", num);
         exit(0);
         break;
+    case 5:
+	printf("Error at column %d: excepcted '(' in line\n", num);
+	exit(0);
+	break;
     }
 }
 
@@ -128,6 +132,7 @@ int main(){
     char str[Size];
     char curch =getchar();
     int symbnum = 0;
+    char ach = '(';
     Circle circle;
     do
     {
@@ -143,7 +148,8 @@ int main(){
             }
         }
         str[symbnum++] = curch;
-
+	if(strchr(str, ach)== NULL)
+	    errPrint(0, 5);
     } while ((curch = getchar()) != '\n' || curch != EOF);
 
     return 0;
