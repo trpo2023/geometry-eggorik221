@@ -2,8 +2,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#define Size 30
-#define pi 3.14
+#define SIZE 30
+#define PI 3.14
 
 typedef struct point {
     double x;
