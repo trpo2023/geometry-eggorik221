@@ -4,7 +4,6 @@
 #include <string.h>
 #include <math.h>
 #define SIZE 30
-#define PI 3.14
 
 typedef struct point {
     double x;
