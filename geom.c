@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 #define SIZE 30
 #define PI 3.14
 
@@ -50,7 +51,7 @@ void errPrint(int num, int errnum)
 double getNumber(int* num)
 {
     char curch;
-    char temp[Size];
+    char temp[SIZE];
     int cnt = 0;
     char* end;
     while ((curch = getchar()) != ')') {
@@ -123,15 +124,15 @@ void getCircleData(Circle* circle, int* num)
 void pushInfo(Circle* circle)
 {
     printf("circle(%f %f, %f)\n", circle->p.x, circle->p.y, circle->r);
-    double perimeter = 2 * pi * circle->r;
-    double area = pi * circle->r * circle->r;
+    double perimeter = 2 * M_PI * circle->r;
+    double area = M_PI * circle->r * circle->r;
     printf("perimeter = %f\n", perimeter);
     printf("area = %f\n", area);
 }
 
 int main()
 {
-    char str[Size];
+    char str[SIZE];
     char curch;
     int symbnum = 0;
     char ach = '(';
