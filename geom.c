@@ -49,12 +49,12 @@ void errPrint(int num, int errnum)
 
 double getNumber(int* num)
 {
-    char curch;
+    char current_ch;
     char temp[SIZE];
     int cnt = 0;
     char* end;
-    while ((curch = getchar()) != ')') {
-        temp[cnt] = curch;
+    while ((current_ch = getchar()) != ')') {
+        temp[cnt] = current_ch;
         if (temp[cnt] == ' ') {
             cnt++;
             break;
@@ -95,11 +95,11 @@ void getPointData(Point* p, int* num)
     *num -= 1;
 }
 
-void tokenContron(int* num)
+void tokenControl(int* num)
 {
-    char curch = getchar();
-    if (curch != '\n') {
-        if (curch != ' ') {
+    char current_ch = getchar();
+    if (current_ch != '\n') {
+        if (current_ch != ' ') {
             errPrint(*num, 4);
             exit(0);
         } else {
@@ -117,10 +117,10 @@ void getCircleData(Circle* circle, int* num)
 {
     getPointData(&circle->p, num);
     circle->r = getNumber(num);
-    tokenContron(num);
+    tokenControl(num);
 }
 
-void pushInfo(Circle* circle)
+void printInfo(Circle* circle)
 {
     printf("circle(%f %f, %f)\n", circle->p.x, circle->p.y, circle->r);
     double perimeter = 2 * M_PI * circle->r;
@@ -129,34 +129,40 @@ void pushInfo(Circle* circle)
     printf("area = %f\n", area);
 }
 
+void countingCircleInfo(double *perimetr, double *area, double r)
+{
+	*perimetr = 2 * M_PI * r;
+	*area = M_PI * r * r;
+}
+
 int main()
 {
     char str[SIZE];
-    char curch;
+    char current_ch;
     int symbnum = 0;
-    char ach = '(';
+    char stop_ch = '(';
     Circle circle;
     do {
-        curch = getchar();
+        current_ch = getchar();
 
-        if (curch == '(') {
+        if (current_ch == '(') {
             if (strcmp(str, "circle") == 0) {
-                str[symbnum++] = curch;
+                str[symbnum++] = current_ch;
                 getCircleData(&circle, &symbnum);
-                pushInfo(&circle);
+                printInfo(&circle);
                 exit(0);
             } else {
                 errPrint(0, 1);
             }
         }
-        str[symbnum++] = curch;
-        if (symbnum > 6 && (strchr(str, ach) == NULL))
+        str[symbnum++] = current_ch;
+        if (symbnum > 6 && (strchr(str, stop_ch) == NULL))
             errPrint(0, 5);
-        if (curch == '\n' || curch == EOF)
+        if (current_ch == '\n' || current_ch == EOF)
             break;
     } while (1);
 
-    if (symbnum < 6 || curch == '\n')
+    if (symbnum < 6 || current_ch == '\n')
         errPrint(0, 1);
     return 0;
 }
