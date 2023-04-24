@@ -1,19 +1,8 @@
 #include <ctype.h>
-#include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-#include <math.h>
-#define SIZE 30
 
-typedef struct point {
-    double x;
-    double y;
-} Point;
-
-typedef struct circle {
-    Point p;
-    double r;
-} Circle;
+#include <libgeometry/lexer.h>
+#include <libgeometry/parser.h>
 
 void errPrint(int num, int errnum)
 {
@@ -87,14 +76,6 @@ double getNumber(int* num)
     return strtod(temp, &end);
 }
 
-void getPointData(Point* p, int* num)
-{
-    p->x = getNumber(num);
-    *num -= 1;
-    p->y = getNumber(num);
-    *num -= 1;
-}
-
 void tokenControl(int* num)
 {
     char current_ch = getchar();
@@ -113,56 +94,10 @@ void tokenControl(int* num)
     }
 }
 
-void getCircleData(Circle* circle, int* num)
+void getPointData(Point* p, int* num)
 {
-    getPointData(&circle->p, num);
-    circle->r = getNumber(num);
-    tokenControl(num);
-}
-
-void printInfo(Circle* circle)
-{
-    printf("circle(%f %f, %f)\n", circle->p.x, circle->p.y, circle->r);
-    double perimeter = 2 * M_PI * circle->r;
-    double area = M_PI * circle->r * circle->r;
-    printf("perimeter = %f\n", perimeter);
-    printf("area = %f\n", area);
-}
-
-void countingCircleInfo(double *perimetr, double *area, double r)
-{
-	*perimetr = 2 * M_PI * r;
-	*area = M_PI * r * r;
-}
-
-int main()
-{
-    char str[SIZE];
-    char current_ch;
-    int symbnum = 0;
-    char stop_ch = '(';
-    Circle circle;
-    do {
-        current_ch = getchar();
-
-        if (current_ch == '(') {
-            if (strcmp(str, "circle") == 0) {
-                str[symbnum++] = current_ch;
-                getCircleData(&circle, &symbnum);
-                printInfo(&circle);
-                exit(0);
-            } else {
-                errPrint(0, 1);
-            }
-        }
-        str[symbnum++] = current_ch;
-        if (symbnum > 6 && (strchr(str, stop_ch) == NULL))
-            errPrint(0, 5);
-        if (current_ch == '\n' || current_ch == EOF)
-            break;
-    } while (1);
-
-    if (symbnum < 6 || current_ch == '\n')
-        errPrint(0, 1);
-    return 0;
+    p->x = getNumber(num);
+    *num -= 1;
+    p->y = getNumber(num);
+    *num -= 1;
 }
