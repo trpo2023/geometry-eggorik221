@@ -1,7 +1,7 @@
 #include <stdio.h>
 
-#include <libgeometry/lexer.h>
 #include <libgeometry/calcul.h>
+#include <libgeometry/lexer.h>
 #include <libgeometry/parser.h>
 
 void getCircleData(Circle* circle, int* num)
