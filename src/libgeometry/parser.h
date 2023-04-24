@@ -14,6 +14,8 @@ typedef struct point {
 typedef struct circle {
     Point p;
     double r;
+    double perimeter;
+    double area;
 } Circle;
 
 void getCircleData(Circle* circle, int* num);

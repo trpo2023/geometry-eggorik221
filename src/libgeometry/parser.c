@@ -1,6 +1,7 @@
 #include <stdio.h>
 
 #include <libgeometry/lexer.h>
+#include <libgeometry/calcul.h>
 #include <libgeometry/parser.h>
 
 void getCircleData(Circle* circle, int* num)
@@ -12,11 +13,10 @@ void getCircleData(Circle* circle, int* num)
 
 void printInfo(Circle* circle)
 {
+    get_circle_demmision(circle);
     printf("circle(%f %f, %f)\n", circle->p.x, circle->p.y, circle->r);
-    double perimeter = 2 * M_PI * circle->r;
-    double area = M_PI * circle->r * circle->r;
-    printf("perimeter = %f\n", perimeter);
-    printf("area = %f\n", area);
+    printf("perimeter = %f\n", circle->perimeter);
+    printf("area = %f\n", circle->area);
 }
 
 void parser(void)
